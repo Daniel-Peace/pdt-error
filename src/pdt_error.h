@@ -8,8 +8,8 @@
  */
 typedef enum
 {
-  OK = 0,
-  ERROR = 1
+  PDT_OK = 0,
+  PDT_ERROR = 1
 } PDT_Error;
 
 #endif
