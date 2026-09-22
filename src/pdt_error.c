@@ -28,37 +28,10 @@
  * =========================================================
  */
 
-#ifndef PDT_ERROR_DEFINITION
-#define PDT_ERROR_DEFINITION
+#include "pdt_error.h"
+#include <stdio.h>
 
-#include "../../pdt-string/src/pdt_string.h"
-#include "../../pdt-boolean/src/pdt_boolean.h"
-
-/**
- * An enum representing the currently supported error codes.
- */
-typedef enum
+PDT_Boolean isError(PDT_Error *error)
 {
-  PDT_OK    = 0,
-  PDT_ERROR = 1,
-} PDT_Error_Type;
-
-/**
- * A struct representing a possible error. Contains not only
- * the error code of the error, but also a description of
- * the error.
- */
-typedef struct
-{
-    PDT_Error_Type  type;
-    PDT_String      description;
-} PDT_Error;
-
-/**
- * Checks if the given "PDT_Error" is an error or not. If
- * the given "PDT_Error" is an error or is `NULL` "PDT_True"
- * is returned, otherwise "PDT_False" is returned.
- */
-PDT_Boolean isError(PDT_Error* error);
-
-#endif
+    return (error == NULL || error->type) ? PDT_TRUE : PDT_FALSE;
+}
