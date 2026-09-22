@@ -29,9 +29,8 @@
  */
 
 #include "pdt_error.h"
-#include <stdio.h>
 
 PDT_Boolean isError(PDT_Error *error)
 {
-    return (error == NULL || error->type) ? PDT_TRUE : PDT_FALSE;
+    return (error == 0 || error->type) ? PDT_TRUE : PDT_FALSE;
 }
