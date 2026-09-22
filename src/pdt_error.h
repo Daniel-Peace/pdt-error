@@ -35,7 +35,7 @@
 #include "../../pdt-boolean/src/pdt_boolean.h"
 
 /**
- * An enum representing the currently supported error codes.
+ * An enum representing the currently supported error types.
  */
 typedef enum
 {
