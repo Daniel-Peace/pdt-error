@@ -31,8 +31,8 @@
 #ifndef PDT_ERROR_DEFINITION
 #define PDT_ERROR_DEFINITION
 
-#include "../../pdt-string/src/pdt_string.h"
-#include "../../pdt-boolean/src/pdt_boolean.h"
+#include <pdt_string.h>
+#include <pdt_boolean.h>
 
 /**
  * An enum representing the currently supported error types.
