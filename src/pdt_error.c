@@ -29,8 +29,70 @@
  */
 
 #include "pdt_error.h"
+#include <pdt_string.h>
 
-PDT_Boolean isError(PDT_Error *error)
+PDT_Boolean PDT_Error_isError(PDT_Error error)
 {
-    return (error == 0 || error->type) ? PDT_TRUE : PDT_FALSE;
+    return error.type ? PDT_TRUE : PDT_FALSE;
+}
+
+PDT_Error PDT_Error_create(PDT_Error_Type type)
+{
+    PDT_Error error;
+
+    error.type = type;
+
+    switch (type)
+    {
+        case PDT_OK:
+            PDT_String_createFromNullTerminated(PDT_ERROR_OK_DEFAULT_MESSAGE, &(error.description));
+            break;
+
+        case PDT_ERROR:
+            PDT_String_createFromNullTerminated(PDT_ERROR_ERROR_DEFAULT_MESSAGE, &(error.description));
+            break;
+    }
+
+    return error;
+}
+
+PDT_Error PDT_Error_createWithCustomMsg(PDT_Error_Type type, PDT_String description)
+{
+    PDT_Error error;
+
+    error.type = type;
+
+    error.description = description;
+
+    return error;
+}
+
+PDT_Error PDT_Error_createWithCustomMsgUnsafe(PDT_Error_Type type, const char* description)
+{
+    PDT_Error error;
+
+    error.type = type;
+
+    if (description == 0)
+    {
+        const char* defaultDescription;
+
+        switch (type)
+        {
+            case PDT_OK:
+                defaultDescription = PDT_ERROR_OK_DEFAULT_MESSAGE;
+                break;
+
+            case PDT_ERROR:
+                defaultDescription = PDT_ERROR_ERROR_DEFAULT_MESSAGE;
+                break;
+        }
+
+        PDT_String_createFromNullTerminated(defaultDescription, &(error.description));
+    } else
+    {
+        PDT_String_createFromNullTerminated(description, &(error.description));
+    }
+
+    return error;
 }

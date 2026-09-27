@@ -35,6 +35,16 @@
 #include <pdt_boolean.h>
 
 /**
+ * The default description to use with "PDT_OK".
+ */
+#define PDT_ERROR_OK_DEFAULT_MESSAGE "Success"
+
+/**
+ * The default description to use with "PDT_ERROR".
+ */
+#define PDT_ERROR_ERROR_DEFAULT_MESSAGE "An error occurred"
+
+/**
  * An enum representing the currently supported error types.
  */
 typedef enum
@@ -56,9 +66,35 @@ typedef struct
 
 /**
  * Checks if the given "PDT_Error" is an error or not. If
- * the given "PDT_Error" is an error or is `NULL` "PDT_True"
+ * the given "PDT_Error" is an error, "PDT_True"
  * is returned, otherwise "PDT_False" is returned.
  */
-PDT_Boolean isError(PDT_Error* error);
+PDT_Boolean PDT_Error_isError(PDT_Error error);
+
+/**
+ * Creates a "PDT_Error" of the given "PDT_Error_Type"
+ * with the default description.
+ */
+PDT_Error PDT_Error_create(PDT_Error_Type type);
+
+/**
+ * Creates a "PDT_Error" of the given "PDT_Type" with the
+ * given `description`.
+ */
+PDT_Error PDT_Error_createWithCustomMsg(
+    PDT_Error_Type type,
+    PDT_String description);
+
+/**
+ * Creates a "PDT_Error" of the given "PDT_Type" with the
+ * given `description`. It should be noted that it is on the
+ * caller to ensure the char* is null terminated. Passing in
+ * a non null terminated char* results in undefined
+ * behavior. If the proveded `description` is `NULL`, then
+ * the corresponding default description will be used.
+ */
+PDT_Error PDT_Error_createWithCustomMsgUnsafe(
+    PDT_Error_Type type,
+    const char* description);
 
 #endif
